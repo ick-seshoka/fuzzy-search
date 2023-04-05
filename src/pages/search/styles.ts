@@ -68,3 +68,13 @@ export const SelectedProduct = styled.h3`
   color: #ffffff;
   text-align: center;
 `;
+
+export const Label = styled.p`
+  font-size: 2em;
+  color: #ffffff;
+`;
+
+export const ErrorLabel = styled.p`
+  font-size: 2em;
+  color: #ff0000;
+`;

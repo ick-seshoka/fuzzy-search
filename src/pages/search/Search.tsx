@@ -9,7 +9,7 @@ import { IProduct } from "../../types/api";
 import { fetchData } from "../../api/search";
 import { fuseOptions } from "../../enums";
 
-import { Container, SelectedProduct } from "./styles";
+import { Container, SelectedProduct, Label, ErrorLabel } from "./styles";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -63,6 +63,22 @@ const Search = () => {
   const onProductUnhover = () => {
     setPreviewProduct("");
   };
+
+  if (loading) {
+    return (
+      <Container>
+        <Label>Feting data..</Label>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <ErrorLabel>Error: {error}</ErrorLabel>
+      </Container>
+    );
+  }
 
   return (
     <Container>

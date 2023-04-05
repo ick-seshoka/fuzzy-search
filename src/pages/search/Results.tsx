@@ -29,6 +29,7 @@ const Results = ({
           {name}
         </ProductItem>
       ))}
+      {products.length === 0 && <ProductItem>No product found </ProductItem>}
     </ResultsContainer>
   );
 };
