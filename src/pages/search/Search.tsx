@@ -31,8 +31,12 @@ const Search = () => {
       try {
         const fetchedData = await fetchData();
         setProducts(fetchedData);
-      } catch (error) {
-        setError(error.message);
+      } catch (error: unknown) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          throw error;
+        }
       } finally {
         setLoading(false);
       }
