@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
+import Fuse from "fuse.js";
 
 import Title from "../../components/Title";
 import Form from "./Form";
 import Results from "./Results";
 
 import { IProduct } from "../../types/api";
+import { fetchData } from "../../api/search";
+import { fuseOptions } from "../../enums";
 
 import { Container } from "./styles";
-import { fetchData } from "../../api/search";
 
 const Search = () => {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [products, setProducts] = useState([] as IProduct[]);
+  const [results, setResults] = useState([] as IProduct[]);
 
   useEffect(() => {
     const loadData = async () => {
@@ -30,11 +33,22 @@ const Search = () => {
     loadData();
   }, []);
 
+  useEffect(() => {
+    const fuse = new Fuse(products, fuseOptions);
+
+    if (search.trim()) {
+      const result = fuse.search(search);
+      setResults(result.map((res) => res.item));
+    } else {
+      setResults([] as IProduct[]);
+    }
+  }, [search]);
+
   return (
     <Container>
       <Title>Find your product</Title>
       <Form search={search} setSearch={setSearch} />
-      {search !== "" && <Results products={products} />}
+      {search !== "" && <Results products={results} />}
     </Container>
   );
 };
