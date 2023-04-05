@@ -9,7 +9,13 @@ import { IProduct } from "../../types/api";
 import { fetchData } from "../../api/search";
 import { fuseOptions } from "../../enums";
 
-import { Container, SelectedProduct, Label, ErrorLabel } from "./styles";
+import {
+  Container,
+  SelectedProduct,
+  Label,
+  ErrorLabel,
+  BackgroundIcon,
+} from "./styles";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -54,6 +60,7 @@ const Search = () => {
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setSearch(value);
+    setPreviewProduct("");
   };
 
   const onProductHover = (name: string) => () => {
@@ -84,7 +91,9 @@ const Search = () => {
     <Container>
       <Title>Find your product</Title>
       <Form
-        search={previewProduct !== "" ? previewProduct : search}
+        search={
+          search !== "" && previewProduct !== "" ? previewProduct : search
+        }
         setSearch={handleSearch}
       />
       {search !== "" && (
@@ -98,6 +107,7 @@ const Search = () => {
       {selectedProduct !== "" && (
         <SelectedProduct>{selectedProduct}</SelectedProduct>
       )}
+      <BackgroundIcon />
     </Container>
   );
 };

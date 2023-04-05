@@ -1,5 +1,7 @@
 import styled from "styled-components";
 
+import BackgroundIconSource from "../../assets/background-icon.svg";
+
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -77,4 +79,11 @@ export const Label = styled.p`
 export const ErrorLabel = styled.p`
   font-size: 2em;
   color: #ff0000;
+`;
+
+export const BackgroundIcon = styled.img.attrs({ src: BackgroundIconSource })`
+  width: 487px;
+  position: fixed;
+  left: -10px;
+  top: 400px;
 `;
