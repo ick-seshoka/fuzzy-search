@@ -44,6 +44,8 @@ export const ResultsContainer = styled.div`
   border-bottom-right-radius: 30px;
   padding: 1em;
   overflow-y: scroll;
+  position: fixed;
+  top: 13em;
 `;
 
 export const ProductItem = styled.p`
@@ -52,4 +54,17 @@ export const ProductItem = styled.p`
   font-size: 24px;
   color: #000000;
   border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+
+  :hover {
+    opacity: 0.35;
+  }
+`;
+
+export const SelectedProduct = styled.h3`
+  font-weight: 500;
+  font-size: 3em;
+  line-height: 75px;
+  color: #ffffff;
+  text-align: center;
 `;

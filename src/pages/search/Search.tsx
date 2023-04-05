@@ -9,7 +9,7 @@ import { IProduct } from "../../types/api";
 import { fetchData } from "../../api/search";
 import { fuseOptions } from "../../enums";
 
-import { Container } from "./styles";
+import { Container, SelectedProduct } from "./styles";
 
 const Search = () => {
   const [search, setSearch] = useState("");
@@ -17,6 +17,8 @@ const Search = () => {
   const [error, setError] = useState("");
   const [products, setProducts] = useState([] as IProduct[]);
   const [results, setResults] = useState([] as IProduct[]);
+  const [selectedProduct, setSelectedProduct] = useState("");
+  const [previewProduct, setPreviewProduct] = useState("");
 
   useEffect(() => {
     const loadData = async () => {
@@ -44,11 +46,42 @@ const Search = () => {
     }
   }, [search]);
 
+  const handleSelectProduct = (name: string) => () => {
+    setSelectedProduct(name);
+    setSearch("");
+  };
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearch(value);
+  };
+
+  const onProductHover = (name: string) => () => {
+    setPreviewProduct(name);
+  };
+
+  const onProductUnhover = () => {
+    setPreviewProduct("");
+  };
+
   return (
     <Container>
       <Title>Find your product</Title>
-      <Form search={search} setSearch={setSearch} />
-      {search !== "" && <Results products={results} />}
+      <Form
+        search={previewProduct !== "" ? previewProduct : search}
+        setSearch={handleSearch}
+      />
+      {search !== "" && (
+        <Results
+          products={results}
+          setSelectedProduct={handleSelectProduct}
+          onProductHover={onProductHover}
+          onProductUnhover={onProductUnhover}
+        />
+      )}
+      {selectedProduct !== "" && (
+        <SelectedProduct>{selectedProduct}</SelectedProduct>
+      )}
     </Container>
   );
 };
