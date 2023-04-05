@@ -6,14 +6,30 @@ import { ProductItem, ResultsContainer } from "./styles";
 
 export interface IProducts {
   products: IProduct[];
+  setSelectedProduct: (name: string) => () => void;
+  onProductHover: (name: string) => () => void;
+  onProductUnhover: () => void;
 }
 
-const Results = ({ products }: IProducts) => {
+const Results = ({
+  products,
+  setSelectedProduct,
+  onProductHover,
+  onProductUnhover,
+}: IProducts) => {
   return (
     <ResultsContainer>
       {products.map(({ name }, index) => (
-        <ProductItem key={index}>{name}</ProductItem>
+        <ProductItem
+          onMouseEnter={onProductHover(name)}
+          onMouseLeave={onProductUnhover}
+          onClick={setSelectedProduct(name)}
+          key={index}
+        >
+          {name}
+        </ProductItem>
       ))}
+      {products.length === 0 && <ProductItem>No product found </ProductItem>}
     </ResultsContainer>
   );
 };
