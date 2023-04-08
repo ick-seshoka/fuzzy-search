@@ -7,7 +7,8 @@ const Form = ({ search, setSearch }: IFormProps) => {
   return (
     <SearchForm>
       <SearchInput
-        type="text"
+        name="search"
+        type="search"
         value={search}
         onChange={setSearch}
         placeholder="Start typing here to search ..."
