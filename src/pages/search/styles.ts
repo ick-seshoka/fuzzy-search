@@ -47,7 +47,7 @@ export const ResultsContainer = styled.div`
   padding: 1em;
   overflow-y: scroll;
   position: fixed;
-  top: 13em;
+  top: 13.7em;
 `;
 
 export const ProductItem = styled.p`
