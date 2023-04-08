@@ -22,7 +22,6 @@ const Search = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [products, setProducts] = useState([] as IProduct[]);
-  const [results, setResults] = useState([] as IProduct[]);
   const [selectedProduct, setSelectedProduct] = useState("");
   const [previewProduct, setPreviewProduct] = useState("");
 
@@ -45,16 +44,8 @@ const Search = () => {
     loadData();
   }, []);
 
-  useEffect(() => {
-    const fuse = new Fuse(products, fuseOptions);
-
-    if (search.trim()) {
-      const result = fuse.search(search);
-      setResults(result.map((res) => res.item));
-    } else {
-      setResults([] as IProduct[]);
-    }
-  }, [search]);
+  const fuse = new Fuse(products, fuseOptions);
+  const results = fuse.search(search).map((res) => res.item);
 
   const handleSelectProduct = (name: string) => () => {
     setSelectedProduct(name);
@@ -78,7 +69,7 @@ const Search = () => {
   if (loading) {
     return (
       <Container>
-        <Label>Feting data..</Label>
+        <Label>Fetching data..</Label>
       </Container>
     );
   }
